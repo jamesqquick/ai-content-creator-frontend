@@ -16,7 +16,7 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="flex gap-x-12">
           {!loading && user && (
             <Link
               href="/logout"
