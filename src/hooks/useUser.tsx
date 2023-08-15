@@ -1,5 +1,6 @@
 import { account, client } from '@/utils/appwrite';
-import { AppwriteException, Models } from 'appwrite';
+/* @ts-ignore */
+import { Account, AppwriteException, Models } from 'appwrite';
 import { useRouter } from 'next/router';
 import {
   useContext,
@@ -10,7 +11,7 @@ import {
 } from 'react';
 
 export interface UserState {
-  user: Models.Account<Models.Preferences> | null;
+  user: Models.User<Models.Preferences> | null;
   loading: boolean;
   error: string | null;
   logout: () => Promise<void>;
@@ -33,7 +34,7 @@ type UserProviderProps = {
   children: ReactNode;
 };
 export const UserProvider = ({ children }: UserProviderProps) => {
-  const [user, setUser] = useState<Models.Account<Models.Preferences> | null>(
+  const [user, setUser] = useState<Models.User<Models.Preferences> | null>(
     null
   );
   const [loading, setLoading] = useState(true);

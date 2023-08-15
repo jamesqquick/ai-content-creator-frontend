@@ -2,7 +2,6 @@ import { Alert } from '@/hooks/useAlert';
 import { Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
-import Icon from './Icon';
 import { AiOutlineClose } from 'react-icons/ai';
 
 export default function SingleAlert({
