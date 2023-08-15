@@ -19,7 +19,7 @@ const ContentGeneratorForm = () => {
         data
       );
       const tweets = JSON.parse(response);
-      console.log(tweets);
+      console.log({ tweets });
     } catch (error) {
       console.error(error);
       addAlert('Failed to generate content plan');
