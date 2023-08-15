@@ -9,7 +9,7 @@ export default function ContentGenerator() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && user) {
+    if (!loading && !user) {
       router.push('/content-generator');
       return;
     }
