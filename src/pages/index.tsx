@@ -5,8 +5,21 @@ const inter = Inter({ subsets: ['latin'] });
 
 import PageHeader from '@/components/PageHeader';
 import Link from 'next/link';
+import { useUser } from '@/hooks/useUser';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function Home() {
+  const { user, loading } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.push('/content-generator');
+      return;
+    }
+  }, [user, loading, router]);
+
   return (
     <main className="">
       <div className="pb-20">
