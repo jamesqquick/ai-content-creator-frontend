@@ -10,10 +10,9 @@ const ContentGeneratorForm = () => {
   const { addAlert } = useAlert();
 
   const handleSubmit = async (e: FormEvent<EventTarget>) => {
+    e.preventDefault();
     if (!user) return;
     const data = JSON.stringify({ topic, email: user.email });
-    console.log(data);
-    console.log(topic, data);
     try {
       const { response } = await functions.createExecution(
         process.env.NEXT_PUBLIC_APPWRITE_FUNCTION_ID || '',
