@@ -3,14 +3,25 @@ import type { FormEvent } from 'react';
 import { useAlert } from '@/hooks/useAlert';
 import { functions } from '@/utils/appwrite';
 import { useUser } from '@/hooks/useUser';
+import BouncingDotsLoader from './BouncingLoaderDots';
 
-const ContentGeneratorForm = () => {
+interface HandleContentGeneratedFunction {
+  (tweets: string[]): void;
+}
+interface ContentGeneratorFormProps {
+  handleContentGenerated: HandleContentGeneratedFunction;
+}
+const ContentGeneratorForm = ({
+  handleContentGenerated,
+}: ContentGeneratorFormProps) => {
   const [topic, setTopic] = useState('');
   const { user } = useUser();
   const { addAlert } = useAlert();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<EventTarget>) => {
     e.preventDefault();
+    setLoading(true);
     if (!user) return;
     const data = JSON.stringify({ topic, email: user.email });
     try {
@@ -19,10 +30,14 @@ const ContentGeneratorForm = () => {
         data
       );
       const tweets = JSON.parse(response);
-      console.log({ tweets });
+      handleContentGenerated(tweets);
+      addAlert('Content generated succesfully!');
+      setTopic('');
     } catch (error) {
       console.error(error);
-      addAlert('Failed to generate content plan');
+      addAlert('Failed to generate content plan', 'error');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,6 +53,7 @@ const ContentGeneratorForm = () => {
         className="w-full p-4 placeholder-gray-400 text-gray-700 bg-white text-lg border-0 border-b-2 border-gray-400 focus:ring-0 focus:border-gray-900"
         type="text"
         required={true}
+        value={topic}
         onChange={(e) => setTopic(e.target.value)}
       />
 
@@ -45,9 +61,9 @@ const ContentGeneratorForm = () => {
         <button
           type="submit"
           disabled={!topic}
-          className="mx-auto mt-4 py-4 px-16 font-semibold rounded-lg shadow-md bg-gray-900 text-white border hover:border-gray-900 hover:text-gray-900 hover:bg-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+          className="mx-auto mt-4 py-4 px-16 font-semibold rounded-lg shadow-md bg-gray-800 text-white border hover:border-gray-900 hover:bg-gray-900 hover:text-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed h-16 w-54"
         >
-          Generate
+          {loading ? <BouncingDotsLoader /> : 'Generate'}
         </button>
       </div>
     </form>

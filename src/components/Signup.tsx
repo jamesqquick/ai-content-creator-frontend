@@ -19,7 +19,7 @@ const SignUp = () => {
       e.preventDefault();
       await signup(email, password, name);
     } catch (error) {
-      addAlert('Failed to signup');
+      addAlert('Failed to signup', 'error');
     }
   };
 

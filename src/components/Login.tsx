@@ -18,7 +18,7 @@ const Login = () => {
       e.preventDefault();
       await login(email, password);
     } catch (error) {
-      addAlert('Failed to login');
+      addAlert('Failed to login', 'error');
     }
   };
 

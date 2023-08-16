@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <AlertProvider>
       <UserProvider>
         <div className="min-h-screen bg-white flex flex-col justify-between text-black">
-          <div className="p-4 md:px-20 ">
+          <div className="p-4  ">
             <div className="bg-white">
               <Header />
 

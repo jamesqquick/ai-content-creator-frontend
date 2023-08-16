@@ -48,7 +48,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     } catch (error) {
       console.error(error);
       setError('failed to load user');
-      throw error;
+      //   throw error;
     } finally {
       setLoading(false);
     }
@@ -84,7 +84,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       setUser(null);
       router.push('/');
     } catch (error: any) {
-      throw error;
+      //   throw error;
+      console.error('Logout error', error);
     }
   };
 
